@@ -13,12 +13,12 @@ class Database{
 
         $this->conn = null;
 
-        $this->conn = new mysqli($host, $username, $password, $db_name);
-        $this->conn->exec("set names utf8");
+        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
+        // $this->conn->exec("set names utf8");
 
-        if ($conn->connect_error) {
+        if ($this->conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
-        } 
+        }
 
         return $this->conn;
     }

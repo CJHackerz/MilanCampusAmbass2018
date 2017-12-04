@@ -15,9 +15,9 @@ $db = $database->getConnection();
 $shares = new Shares($db);
 
 // check if more than 0 record found
-if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['user_id'] != '' && $_POST['post_id'] != ''&& $_POST['share_id'] != '') {
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['user_id'] != '' && $_POST['post_id'] != ''&& $_POST['share_post_id'] != '') {
 
-    if($shares->newShare($_POST['user_id'], $_POST['post_id'], $_POST['share_id'])) {
+    if($shares->newShare($_POST['user_id'], $_POST['post_id'], $_POST['share_post_id'])) {
         echo json_encode(
             array(
                 'status_code' => 200,
@@ -38,8 +38,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['user_id'] != '' && $_POST['po
 else{
     echo json_encode(
         array(
-            "status_code" => 400,
-            "message " => 'BAD REQUEST. Invalid method or missing params'
+            'status_code' => 400,
+            'message' => 'BAD REQUEST. Invalid method or missing params'
         )
     );
 }
