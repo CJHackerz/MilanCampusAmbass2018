@@ -18,7 +18,7 @@ class Ideas {
         $this->conn = $db;
     }
 
-    public function newIdea($user_id, $venue, $addres, $contact_name, $contact_number, $remarks) {
+    public function newIdea($user_id, $venue, $address, $contact_name, $contact_number, $remarks) {
         $this->user_id = htmlspecialchars(strip_tags($user_id));
         $this->venue = htmlspecialchars(strip_tags($venue));
         $this->address = htmlspecialchars(strip_tags($address));
