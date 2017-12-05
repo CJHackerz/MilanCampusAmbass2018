@@ -19,6 +19,10 @@ class Ideas {
     }
 
     public function newIdea($user_id, $venue, $address, $contact_name, $contact_number, $remarks) {
+        if($user_id == 'undefined' || $venue == 'undefined' || $address == 'undefined' || $contact_name == 'undefined' || $contact_number == 'undefined' || $remarks == 'undefined') {
+            return false;
+        }
+
         $this->user_id = htmlspecialchars(strip_tags($user_id));
         $this->venue = htmlspecialchars(strip_tags($venue));
         $this->address = htmlspecialchars(strip_tags($address));
