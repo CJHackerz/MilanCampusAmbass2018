@@ -26,7 +26,7 @@ class Users {
     public function newUser($fb_id, $name, $email, $mobile_number, $whatsapp_number, $city, $college, $address, $zipcode, $year_of_study, $status) {
         $this->fb_id = htmlspecialchars(strip_tags($fb_id));
         $this->name = htmlspecialchars(strip_tags($name));
-        $this->fb_id = htmlspecialchars(strip_tags($fb_id));
+        $this->email = htmlspecialchars(strip_tags($email));
         $this->mobile_number = htmlspecialchars(strip_tags($mobile_number));
         $this->whatsapp_number = htmlspecialchars(strip_tags($whatsapp_number));
         $this->city = htmlspecialchars(strip_tags($city));

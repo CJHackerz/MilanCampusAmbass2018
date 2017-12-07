@@ -15,7 +15,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$shares = new Users($db);
+$users = new Users($db);
 
 // check if more than 0 record found
 if(
@@ -23,7 +23,7 @@ if(
     && isset($_POST['fb_id'])
 ) {
 
-    if($shares->newUser(
+    if($users->checkUserStatus(
         $_POST['fb_id']
     )) {
         echo json_encode(

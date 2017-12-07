@@ -15,7 +15,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$shares = new Users($db);
+$users = new Users($db);
 
 // check if more than 0 record found
 if(
@@ -32,7 +32,7 @@ if(
     && isset($_POST['year_of_study'])
 ) {
 
-    if($shares->newUser(
+    if($users->newUser(
         $_POST['fb_id'],
         $_POST['name'],
         $_POST['email'],
@@ -42,7 +42,8 @@ if(
         $_POST['college'],
         $_POST['address'],
         $_POST['zipcode'],
-        $_POST['year_of_study']
+        $_POST['year_of_study'],
+        'set'
     )) {
         echo json_encode(
             array(
