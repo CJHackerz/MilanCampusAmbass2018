@@ -16,10 +16,14 @@ function leader(){//ignore the comments please
     $db = $database->getConnection();
 
     //$result = $db->query('SELECT id,fb_id,name,status FROM users ORDER BY status desc');
-    $result = $db->query('SELECT id, fb_id, name, count(*) as score from shares group by id order by count(*) desc');
+    $result = $db->query('SELECT *
+                        FROM (SELECT id, fb_id, name, count(*) as score
+                            FROM shares
+                            GROUP BY id
+                            ORDER BY count(*) DESC)
+                        LIMIT 10');
 
     $list = array ();
-    $x = 0;
 
     echo '<table><tr><th>Name</th><th>Facebook ID</th><th>Score</th></tr>';
 
@@ -33,9 +37,6 @@ function leader(){//ignore the comments please
         $list[$row->id]['score'] = $row->score;
         $x++;
         */
-        if($x==10){
-            break;
-        }
     }
     echo '</table>';
     /*
