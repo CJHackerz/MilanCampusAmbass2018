@@ -28,9 +28,20 @@ function leader(){//ignore the comments please
     echo '<table><tr><th>Name</th><th>Facebook ID</th><th>Score</th></tr>';
 
     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        echo json_encode(
+            array(
+                'name' => $row->name,
+                'fb_id' => $row->fb_id,
+                'score' => $row->score,
+                'status_code' => 200,
+                'message' => 'Accepted request'
+            );
+        )
+        /*
         echo '<tr><td>' . $row->name . '</td>';
         echo '<td>' . $row->fb_id . '</td>';
         echo '<td>' . $row->score . '</td></tr>';
+        */
         /*
         $list[$row->id]['fb_id'] = $row->fb_id;
         $list[$row->id]['name'] = $row->name;
@@ -38,7 +49,7 @@ function leader(){//ignore the comments please
         $x++;
         */
     }
-    echo '</table>';
+   // echo '</table>';
     /*
     foreach($list['id'] as $list) {
         echo $list['fb_id'], '<br>';
