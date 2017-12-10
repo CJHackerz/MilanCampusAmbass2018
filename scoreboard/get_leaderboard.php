@@ -19,37 +19,28 @@ $scoreboard = new Scoreboard($db);
 
 // check if more than 0 record found
 
-if($res = $scoreboard->getUserStats($_POST['fb_id'])) {
-
-    $query = $db->query('SELECT * FROM scoreboard GROUP BY fb_id ORDER BY shares DESC LIMIT 10'); 
-    
-    while ($row = $query->fetch_array(MYSQLI_ASSOC)) {
-
-
-        $list[$row->id]['fb_id'] = $row->fb_id;
-        $list[$row->id]['name'] = $row->name;
-        $list[$row->id]['score'] = $row->score;
-        $list[$row->id]['city'] = $row_1->city;
-        $list[$row->id]['college'] = $row_1->college;
+if($users = $scoreboard->getTop10()) {
+    $list = array();
+    foreach($users as $u) {
+        array_push($list, array(
+            'fb_id' => $u['fb_id'],
+            'user_name' => $u['user_name'],
+            'score' => $u['score']
+        ));
     }
-    echo json_encode($list);
+
     echo json_encode(
         array(
             'status_code' => 200,
-            'message' => 'User stats received',
-            'user' => array(
-                'fb_id' => $res->fb_id,
-                'name' => $res->user_name,
-                'shares' => $res->shares,
-                'score' => $res->score
-            )
+            'message'=> "leaderboard list",
+            'users' => $list
         )
     );
 } else {
     echo json_encode(
         array(
-            'status_code' => 500,
-            'message' => 'Internal server error'
+            'status_code' => 400,
+            'message' => 'BAD REQUEST. Invalid method or missing params'
         )
     );
 }

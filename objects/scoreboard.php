@@ -60,6 +60,30 @@ class Scoreboard {
             return false;
         }
     }
+
+    public function getTop10() {
+        $sql = "SELECT * FROM scoreboard order by score desc limit 10";
+        
+        $result = $this->conn->query($sql);
+
+        $users = array();
+
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+
+                $t = array(
+                    "fb_id"=> $row['fb_id'],
+                    'user_name'=> $row['user_name'],
+                    'score'=> $row['score']
+                );
+                array_push($users, $t);
+            }
+
+            return $users;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
