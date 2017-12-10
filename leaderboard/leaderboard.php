@@ -9,6 +9,7 @@ header("Content-Type: application/json; charset=UTF-8");
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/shares.php';
+include_once '../objects/users.php';
 
 function leader(){//ignore the comments please
     // instantiate database and product object
@@ -16,18 +17,12 @@ function leader(){//ignore the comments please
     $db = $database->getConnection();
 
     //$result = $db->query('SELECT id,fb_id,name,status FROM users ORDER BY status desc');
-    $result = $db->query('SELECT *
-                        FROM (SELECT id, fb_id, name, count(*) as score
-                            FROM shares
-                            GROUP BY id
-                            ORDER BY count(*) DESC)
-                        LIMIT 10');
+    $result = $db->query('SELECT * FROM (SELECT id, fb_id, name, count(*) as score FROM shares GROUP BY id ORDER BY count(*) DESC) LIMIT 10');
 
     $list = array ();
 
-    echo '<table><tr><th>Name</th><th>Facebook ID</th><th>Score</th></tr>';
-
     while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        /*
         echo json_encode(
             array(
                 'name' => $row->name,
@@ -36,27 +31,16 @@ function leader(){//ignore the comments please
                 'status_code' => 200,
                 'message' => 'Accepted request'
             );
-        )
-        /*
-        echo '<tr><td>' . $row->name . '</td>';
-        echo '<td>' . $row->fb_id . '</td>';
-        echo '<td>' . $row->score . '</td></tr>';
-        */
-        /*
+        )*/
+        $user_table = $db->query("SELECT city, college FROM users WHERE fb_id = '$row->fb_id'")
+        $row_1 = $user_table->fetch_array(MYSQLI_ASSOC);
+
         $list[$row->id]['fb_id'] = $row->fb_id;
         $list[$row->id]['name'] = $row->name;
         $list[$row->id]['score'] = $row->score;
-        $x++;
-        */
+        $list[$row->id]['city'] = $row_1->city;
+        $list[$row->id]['college'] = $row_1->college;
     }
-   // echo '</table>';
-    /*
-    foreach($list['id'] as $list) {
-        echo $list['fb_id'], '<br>';
-        echo $list['name'], '<br>';
-        echo $list['status'], '<br>';
-    }
-    */
-    //echo $list;
+    echo json_encode($list);
 }
 ?>
