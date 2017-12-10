@@ -9,6 +9,7 @@ header("Content-Type: application/json; charset=UTF-8");
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/users.php';
+include_once '../objects/scoreboard.php';
 
 // instantiate database and product object
 $database = new Database();
@@ -16,6 +17,7 @@ $db = $database->getConnection();
 
 // initialize object
 $users = new Users($db);
+$scoreboard = new Scoreboard($db);
 
 // check if more than 0 record found
 if(
@@ -44,6 +46,9 @@ if(
         $_POST['zipcode'],
         $_POST['year_of_study'],
         'set'
+    ) && $scoreboard->newUserScore(
+        $_POST['fb_id'],
+        $_POST['name']
     )) {
         echo json_encode(
             array(
