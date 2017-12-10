@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2017 at 10:35 AM
+-- Generation Time: Dec 10, 2017 at 09:17 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -56,6 +56,20 @@ INSERT INTO `ideas` (`id`, `user_id`, `venue`, `address`, `contact_name`, `conta
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `scoreboard`
+--
+
+CREATE TABLE `scoreboard` (
+  `fb_id` varchar(64) COLLATE utf8_bin NOT NULL,
+  `user_name` varchar(128) COLLATE utf8_bin NOT NULL,
+  `score` int(11) NOT NULL,
+  `shares` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shares`
 --
 
@@ -72,7 +86,8 @@ CREATE TABLE `shares` (
 --
 
 INSERT INTO `shares` (`id`, `user_id`, `post_id`, `share_post_id`, `timestamp`) VALUES
-(11, '1809461805744073', '527811900648870_1558795974217119', '1814460145244239', '2017-12-04 11:57:21');
+(11, '1809461805744073', '527811900648870_1558795974217119', '1814460145244239', '2017-12-04 11:57:21'),
+(12, '1245_341', '1231023_0123', '12345', '2017-12-09 14:09:16');
 
 -- --------------------------------------------------------
 
@@ -97,13 +112,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `fb_id`, `name`, `email`, `mobile_number`, `whatsapp_number`, `city`, `college`, `address`, `zipcode`, `year_of_study`, `status`, `timestamp`) VALUES
-(3, '1809461805744073', 'Rohan Anand', 'thededlier@gmail.com', '9176045101', '9176045101', 'Chennai', 'SRM University', 'Potheri Kattankulathur', '122016', 'undefined', 'set', '2017-12-07 09:30:38');
-
---
 -- Indexes for dumped tables
 --
 
@@ -112,6 +120,12 @@ INSERT INTO `users` (`id`, `fb_id`, `name`, `email`, `mobile_number`, `whatsapp_
 --
 ALTER TABLE `ideas`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `scoreboard`
+--
+ALTER TABLE `scoreboard`
+  ADD PRIMARY KEY (`fb_id`);
 
 --
 -- Indexes for table `shares`
@@ -138,12 +152,12 @@ ALTER TABLE `ideas`
 -- AUTO_INCREMENT for table `shares`
 --
 ALTER TABLE `shares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
