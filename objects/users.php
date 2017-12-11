@@ -69,6 +69,44 @@ class Users {
             return false;
         }
     }
+
+    public function updateProfile($fb_id, $email, $mobile_number, $whatsapp_number, $city, $college, $address, $zipcode, $year_of_study) {
+        $this->fb_id = htmlspecialchars(strip_tags($fb_id));
+        $this->email = htmlspecialchars(strip_tags($email));
+        $this->mobile_number = htmlspecialchars(strip_tags($mobile_number));
+        $this->whatsapp_number = htmlspecialchars(strip_tags($whatsapp_number));
+        $this->city = htmlspecialchars(strip_tags($city));
+        $this->college = htmlspecialchars(strip_tags($college));
+        $this->address = htmlspecialchars(strip_tags($address));
+        $this->zipcode = htmlspecialchars(strip_tags($zipcode));
+        $this->year_of_study = htmlspecialchars(strip_tags($year_of_study));
+
+        $sql = "SELECT * FROM users WHERE fb_id = '$this->fb_id'";
+
+        $result = $this->conn->query($sql);
+
+        if($result->num_rows > 0) {
+
+            $sql = "UPDATE users SET
+                    email='$this->email',
+                    mobile_number = '$this->mobile_number',
+                    whatsapp_number = '$this->whatsapp_number',
+                    city = '$this->city',
+                    college = '$this->college',
+                    address = '$this->address',
+                    zipcode = '$this->zipcode',
+                    year_of_study = '$this->year_of_study'
+                    WHERE fb_id = '$this->fb_id'";
+
+            if($this->conn->query($sql)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
