@@ -70,6 +70,31 @@ class Users {
         }
     }
 
+    public function getProfile($fb_id) {
+        $this->fb_id = htmlspecialchars(strip_tags($fb_id));
+
+        $sql = "SELECT * FROM users WHERE fb_id = '$this->fb_id'";
+
+        $result = $this->conn->query($sql);
+
+        if($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            $this->email = $row['email'];
+            $this->mobile_number = $row['mobile_number'];
+            $this->whatsapp_number = $row['whatsapp_number'];
+            $this->city = $row['city'];
+            $this->college = $row['college'];
+            $this->address = $row['address'];
+            $this->zipcode = $row['zipcode'];
+            $this->year_of_study = $row['year_of_study'];
+
+            return $this;
+        } else {
+            return false; 
+        }
+    }
+
     public function updateProfile($fb_id, $email, $mobile_number, $whatsapp_number, $city, $college, $address, $zipcode, $year_of_study) {
         $this->fb_id = htmlspecialchars(strip_tags($fb_id));
         $this->email = htmlspecialchars(strip_tags($email));
