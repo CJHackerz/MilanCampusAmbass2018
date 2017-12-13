@@ -20,7 +20,6 @@ $users = new Users($db);
 if(
     $_SERVER['REQUEST_METHOD'] == 'POST'
     && isset($_POST['fb_id'])
-    && isset($_POST['name'])
     && isset($_POST['email'])
     && isset($_POST['mobile_number'])
     && isset($_POST['whatsapp_number'])
@@ -33,7 +32,6 @@ if(
 
     if($users->updateProfile(
         $_POST['fb_id'],
-        $_POST['name'],
         $_POST['email'],
         $_POST['mobile_number'],
         $_POST['whatsapp_number'],
