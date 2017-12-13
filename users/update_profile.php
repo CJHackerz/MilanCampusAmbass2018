@@ -9,15 +9,12 @@ header("Content-Type: application/json; charset=UTF-8");
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/users.php';
-include_once '../objects/scoreboard.php';
-
 // instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
 $users = new Users($db);
-$scoreboard = new Scoreboard($db);
 
 // check if more than 0 record found
 if(
@@ -34,7 +31,7 @@ if(
     && isset($_POST['year_of_study'])
 ) {
 
-    if($users->newUser(
+    if($users->updateProfile(
         $_POST['fb_id'],
         $_POST['name'],
         $_POST['email'],
@@ -44,11 +41,7 @@ if(
         $_POST['college'],
         $_POST['address'],
         $_POST['zipcode'],
-        $_POST['year_of_study'],
-        'set'
-    ) && $scoreboard->newUserScore(
-        $_POST['fb_id'],
-        $_POST['name']
+        $_POST['year_of_study']
     )) {
         echo json_encode(
             array(
