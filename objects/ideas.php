@@ -34,7 +34,7 @@ class Ideas {
     ) {
 
         $this->user_id = htmlspecialchars(strip_tags($user_id));
-        $this->category;
+        $this->category = $category;
         $this->subject = htmlspecialchars(strip_tags($subject));
         $this->message = htmlspecialchars(strip_tags($message));
         $this->contact_name = htmlspecialchars(strip_tags($contact_name));
