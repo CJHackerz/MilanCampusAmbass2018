@@ -15,12 +15,33 @@ $database = new Database();
 $db = $database->getConnection();
 
 // initialize object
-$shares = new Ideas($db);
+$ideas = new Ideas($db);
 
 // check if more than 0 record found
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']) && isset($_POST['venue']) && isset($_POST['venue_address']) && isset($_POST['contact_name']) && isset($_POST['contact_number']) && isset($_POST['remarks'])) {
+if(
+    $_SERVER['REQUEST_METHOD'] == 'POST'
+    && isset($_POST['user_id'])
+    && isset($_POST['category'])
+    && isset($_POST['subject'])
+    && isset($_POST['message'])
+    && isset($_POST['contact_name'])
+    && isset($_POST['contact_college'])
+    && isset($_POST['contact_number'])
+    && isset($_POST['contact_mail'])
+    && isset($_POST['contact_year'])
+) {
 
-    if($shares->newIdea($_POST['user_id'], $_POST['venue'], $_POST['venue_address'], $_POST['contact_name'], $_POST['contact_number'], $_POST['remarks'])) {
+    if($ideas->newIdea(
+        $_POST['user_id'],
+        $_POST['category'],
+        $_POST['subject'],
+        $_POST['message'],
+        $_POST['contact_name'],
+        $_POST['contact_college'],
+        $_POST['contact_number'],
+        $_POST['contact_mail'],
+        $_POST['contact_year']
+    )) {
         echo json_encode(
             array(
                 'status_code' => 200,
