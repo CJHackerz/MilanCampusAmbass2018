@@ -9,6 +9,8 @@ class Scoreboard {
     public $user_name;
     public $score;
     public $shares;
+    public $fortnight_score;
+    public $fortnight_shares;
     public $timestamp;
 
     public function __construct($db){
@@ -33,7 +35,7 @@ class Scoreboard {
     public function updateScoreOnShare($fb_id) {
         $this->fb_id = htmlspecialchars(strip_tags($fb_id));
 
-        $sql = "UPDATE scoreboard SET score = score+4, shares = shares+1 WHERE fb_id = '$this->fb_id'";
+        $sql = "UPDATE scoreboard SET score = score+4, shares = shares+1, fortnight_score = fortnight_score + 4, fortnight_shares = fortnight_shares + 1 WHERE fb_id = '$this->fb_id'";
 
         if($this->conn->query($sql)) {
             return true;
@@ -54,6 +56,8 @@ class Scoreboard {
             $this->score = $r['score'];
             $this->shares = $r['shares'];
             $this->user_name = $r['user_name'];
+            $this->fortnight_score = $r['fortnight_score'];
+            $this->fortnight_shares = $r['fortnight_shares'];
 
             return $this;
         } else {
@@ -63,7 +67,7 @@ class Scoreboard {
 
     public function getTop10() {
         $sql = "SELECT * FROM scoreboard order by score desc limit 10";
-        
+
         $result = $this->conn->query($sql);
 
         $users = array();
@@ -84,6 +88,18 @@ class Scoreboard {
             return false;
         }
     }
+
+    public function resetFortnight($secret) {
+        if($secret != '6b7477c1a02a90e2fc50b185a872d82a')
+        $sql = "UPDATE scoreboard SET fortnight_score = 0, fortnight_shares = 0";
+
+        if($this->conn->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>
