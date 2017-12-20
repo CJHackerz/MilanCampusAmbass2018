@@ -27,7 +27,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fb_id'])) {
                 'message' => 'User stats received',
                 'user' => array(
                     'shares' => $res->shares,
-                    'score' => $res->score
+                    'score' => $res->score,
+                    'fortnight_shares' => $res->fortnight_shares,
+                    'fortnight_score' => $res->fortnight_score
                 )
             )
         );
