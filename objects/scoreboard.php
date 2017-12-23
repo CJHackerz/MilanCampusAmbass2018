@@ -90,7 +90,34 @@ class Scoreboard {
     }
 
     public function resetFortnight($secret) {
-        if($secret != '6b7477c1a02a90e2fc50b185a872d82a')
+        if($secret != '6b7477c1a02a90e2fc50b185a872d82a') {
+            return false;
+        }
+        // Create csv file
+
+        $file = fopen('../../Fortnight' . date('d-m-Y h-i-s', time()) . '.csv', 'w');
+
+        fputcsv($file, array('position', 'fb_id', 'name', 'fortnight_score', 'fortnight_shares'));
+
+        $sql = "SELECT * FROM scoreboard ORDER BY fortnight_score";
+
+        $result = $this->conn->query($sql);
+
+        $data = array();
+
+        $i = 1;
+        while($row = $result->fetch_assoc()) {
+            array_push($data, array(
+                $i, $row['fb_id'], $row['user_name'], $row['fortnight_score'], $row['fortnight_shares']
+            ));
+            $i++;
+        }
+
+        foreach ($data as $r)
+        {
+            fputcsv($file, $r);
+        }
+
         $sql = "UPDATE scoreboard SET fortnight_score = 0, fortnight_shares = 0";
 
         if($this->conn->query($sql)) {
