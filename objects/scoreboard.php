@@ -102,7 +102,7 @@ class Scoreboard {
                 $t = array(
                     "fb_id"=> $row['fb_id'],
                     'user_name'=> $row['user_name'],
-                    'score'=> $row['score']
+                    'score'=> $row['fortnight_score']
                 );
                 array_push($users, $t);
             }
