@@ -89,6 +89,30 @@ class Scoreboard {
         }
     }
 
+    public function getFortnightTop10() {
+        $sql = "SELECT * FROM scoreboard order by fortnight_score desc limit 10";
+
+        $result = $this->conn->query($sql);
+
+        $users = array();
+
+        if($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+
+                $t = array(
+                    "fb_id"=> $row['fb_id'],
+                    'user_name'=> $row['user_name'],
+                    'score'=> $row['score']
+                );
+                array_push($users, $t);
+            }
+
+            return $users;
+        } else {
+            return false;
+        }
+    }
+
     public function resetFortnight($secret) {
         if($secret != '6b7477c1a02a90e2fc50b185a872d82a') {
             return false;
